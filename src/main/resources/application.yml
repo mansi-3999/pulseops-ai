@@ -46,6 +46,12 @@ pulseops:
   kafka:
     topics:
       telemetry-raw: pulseops.telemetry.raw
+  ai:
+    enabled: ${PULSEOPS_AI_ENABLED:true}
+    region: ${AWS_REGION:us-east-1}
+    model-id: ${BEDROCK_MODEL_ID:amazon.nova-lite-v1:0}
+    max-tokens: 1200
+    temperature: 0.2
 
   correlation:
     minimum-events: 2
