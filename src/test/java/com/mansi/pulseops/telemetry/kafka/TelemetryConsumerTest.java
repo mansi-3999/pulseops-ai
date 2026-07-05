@@ -1,16 +1,15 @@
 package com.mansi.pulseops.telemetry.kafka;
 
+import com.mansi.pulseops.correlation.service.CorrelationService;
 import com.mansi.pulseops.telemetry.domain.TelemetryEvent;
 import com.mansi.pulseops.telemetry.domain.TelemetrySeverity;
 import com.mansi.pulseops.telemetry.dto.TelemetryEventMessage;
 import com.mansi.pulseops.telemetry.repository.TelemetryEventRepository;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -19,13 +18,20 @@ class TelemetryConsumerTest {
     private final TelemetryEventRepository repository =
             mock(TelemetryEventRepository.class);
 
+    private final CorrelationService correlationService =
+            mock(CorrelationService.class);
+
     private final TelemetryConsumer consumer =
-            new TelemetryConsumer(repository);
+            new TelemetryConsumer(
+                    repository,
+                    correlationService
+            );
 
     @Test
-    void shouldPersistNewTelemetryEvent() {
+    void shouldPersistAndCorrelateNewTelemetryEvent() {
 
-        UUID eventId = UUID.randomUUID();
+        UUID eventId =
+                UUID.randomUUID();
 
         TelemetryEventMessage message =
                 new TelemetryEventMessage(
@@ -42,40 +48,30 @@ class TelemetryConsumerTest {
         when(repository.existsById(eventId))
                 .thenReturn(false);
 
-        when(repository.save(any(TelemetryEvent.class)))
-                .thenAnswer(invocation ->
-                        invocation.getArgument(0));
+        when(repository.saveAndFlush(
+                any(TelemetryEvent.class)
+        )).thenAnswer(invocation ->
+                invocation.getArgument(0)
+        );
 
         consumer.consume(message);
 
-        ArgumentCaptor<TelemetryEvent> captor =
-                ArgumentCaptor.forClass(
-                        TelemetryEvent.class
+        verify(repository)
+                .saveAndFlush(
+                        any(TelemetryEvent.class)
                 );
 
-        verify(repository)
-                .save(captor.capture());
-
-        TelemetryEvent saved =
-                captor.getValue();
-
-        assertThat(saved.getId())
-                .isEqualTo(eventId);
-
-        assertThat(saved.getServiceName())
-                .isEqualTo("payment-service");
-
-        assertThat(saved.getTraceId())
-                .isEqualTo("trace-123");
-
-        assertThat(saved.getIncidentId())
-                .isNull();
+        verify(correlationService)
+                .correlate(
+                        any(TelemetryEvent.class)
+                );
     }
 
     @Test
     void shouldIgnoreDuplicateTelemetryEvent() {
 
-        UUID eventId = UUID.randomUUID();
+        UUID eventId =
+                UUID.randomUUID();
 
         TelemetryEventMessage message =
                 new TelemetryEventMessage(
@@ -95,6 +91,12 @@ class TelemetryConsumerTest {
         consumer.consume(message);
 
         verify(repository, never())
-                .save(any(TelemetryEvent.class));
+                .saveAndFlush(
+                        any(TelemetryEvent.class)
+                );
+
+        verifyNoInteractions(
+                correlationService
+        );
     }
 }

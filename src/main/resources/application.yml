@@ -46,3 +46,6 @@ pulseops:
   kafka:
     topics:
       telemetry-raw: pulseops.telemetry.raw
+
+  correlation:
+    minimum-events: 2

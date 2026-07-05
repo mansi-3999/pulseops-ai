@@ -1,5 +1,6 @@
 package com.mansi.pulseops.telemetry.kafka;
 
+import com.mansi.pulseops.correlation.service.CorrelationService;
 import com.mansi.pulseops.telemetry.domain.TelemetryEvent;
 import com.mansi.pulseops.telemetry.dto.TelemetryEventMessage;
 import com.mansi.pulseops.telemetry.repository.TelemetryEventRepository;
@@ -13,14 +14,19 @@ import org.springframework.transaction.annotation.Transactional;
 public class TelemetryConsumer {
 
     private static final Logger log =
-            LoggerFactory.getLogger(TelemetryConsumer.class);
+            LoggerFactory.getLogger(
+                    TelemetryConsumer.class
+            );
 
     private final TelemetryEventRepository repository;
+    private final CorrelationService correlationService;
 
     public TelemetryConsumer(
-            TelemetryEventRepository repository
+            TelemetryEventRepository repository,
+            CorrelationService correlationService
     ) {
         this.repository = repository;
+        this.correlationService = correlationService;
     }
 
     @KafkaListener(
@@ -31,7 +37,6 @@ public class TelemetryConsumer {
     public void consume(
             TelemetryEventMessage message
     ) {
-
         log.info(
                 "Received telemetry event. eventId={}, serviceName={}, traceId={}",
                 message.eventId(),
@@ -39,8 +44,9 @@ public class TelemetryConsumer {
                 message.traceId()
         );
 
-        if (repository.existsById(message.eventId())) {
-
+        if (repository.existsById(
+                message.eventId()
+        )) {
             log.warn(
                     "Duplicate telemetry event ignored. eventId={}",
                     message.eventId()
@@ -62,11 +68,16 @@ public class TelemetryConsumer {
                         null
                 );
 
-        repository.save(event);
+        TelemetryEvent savedEvent =
+                repository.saveAndFlush(event);
 
         log.info(
                 "Persisted telemetry event. eventId={}",
-                message.eventId()
+                savedEvent.getId()
+        );
+
+        correlationService.correlate(
+                savedEvent
         );
     }
 }
