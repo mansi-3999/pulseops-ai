@@ -1,0 +1,53 @@
+package com.mansi.pulseops.telemetry.controller;
+
+import com.mansi.pulseops.telemetry.dto.TelemetryAcceptedResponse;
+import com.mansi.pulseops.telemetry.dto.TelemetryEventRequest;
+import com.mansi.pulseops.telemetry.service.TelemetryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/v1/telemetry/events")
+public class TelemetryController {
+
+    private final TelemetryService service;
+
+    public TelemetryController(
+            TelemetryService service
+    ) {
+        this.service = service;
+    }
+
+    @Operation(
+            summary = "Ingest telemetry event",
+            description = "Accepts a telemetry event for asynchronous processing through Kafka"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "202",
+                    description = "Telemetry event accepted for asynchronous processing"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid telemetry event"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Unexpected server error"
+            )
+    })
+    @PostMapping
+    public ResponseEntity<TelemetryAcceptedResponse> ingest(
+            @Valid
+            @RequestBody
+            TelemetryEventRequest request
+    ) {
+        return ResponseEntity
+                .accepted()
+                .body(service.ingest(request));
+    }
+}
