@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/pulseops}
+    username: ${DB_USERNAME:pulseops}
+    password: ${DB_PASSWORD:pulseops}
+logging:
+  level:
+    com.mansi.pulseops: INFO
