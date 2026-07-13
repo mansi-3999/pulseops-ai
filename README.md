@@ -1,29 +1,247 @@
-# PulseOps AI — Phase 1
+# 🚀 PulseOps AI
 
-A Java 21 + Spring Boot foundation for an intelligent incident correlation and root-cause analysis platform.
+> **An AI-powered Incident Correlation & Root Cause Analysis Platform built with Java 21, Spring Boot, Kafka and Amazon Bedrock.**
 
-## Included
-- Package-by-feature architecture
-- PostgreSQL + Flyway
-- Incident lifecycle APIs
-- Validation and global exception handling
-- Swagger/OpenAPI
-- Actuator health endpoint
-- Docker Compose
-- JUnit/Mockito test
+PulseOps AI automatically ingests telemetry events, correlates failures across distributed services, identifies probable root causes using deterministic analysis, and generates AI-powered incident investigation reports using Amazon Bedrock.
 
-## Run
+---
+
+## ✨ Why PulseOps AI?
+
+Modern microservice architectures generate thousands of logs and events every minute. During production outages, engineers spend valuable time manually correlating logs across multiple services.
+
+PulseOps AI automates this workflow by:
+
+- 📥 Ingesting telemetry events in real time
+- 🔗 Correlating related failures
+- 🚨 Creating incidents automatically
+- 🧠 Performing deterministic root cause analysis
+- 🤖 Generating AI-powered investigation reports
+- 📊 Exposing operational metrics for observability
+
+---
+
+# 🏗 Architecture
+
+```text
+                    +--------------------+
+                    |  Client Services   |
+                    +---------+----------+
+                              |
+                       Telemetry Events
+                              |
+                              ▼
+                       Apache Kafka Topic
+                              |
+                              ▼
+                    Telemetry Consumer
+                              |
+                              ▼
+                  Correlation Engine
+                              |
+                              ▼
+                 Incident Management
+                              |
+                              ▼
+               Investigation Engine
+                              |
+                              ▼
+            Deterministic RCA Engine
+                              |
+                              ▼
+                Prompt Builder (LLM)
+                              |
+                              ▼
+                 Amazon Bedrock AI
+                              |
+                              ▼
+               AI Investigation Report
+                              |
+                              ▼
+                    PostgreSQL Storage
+                              |
+                              ▼
+                    REST APIs / Swagger
+```
+
+---
+
+# ⚙️ Tech Stack
+
+| Category | Technologies |
+|----------|--------------|
+| Language | Java 21 |
+| Framework | Spring Boot 3.5 |
+| Messaging | Apache Kafka |
+| Database | PostgreSQL |
+| ORM | Spring Data JPA |
+| Migration | Flyway |
+| AI | Amazon Bedrock (Nova Lite) |
+| Cloud SDK | AWS SDK v2 |
+| Observability | Spring Boot Actuator, Micrometer |
+| API Docs | OpenAPI / Swagger |
+| Build Tool | Maven |
+| Testing | JUnit 5, Mockito |
+| Containerization | Docker |
+
+---
+
+# 🔥 Key Features
+
+### Intelligent Incident Correlation
+
+- Correlates telemetry events using Trace IDs
+- Prevents duplicate incidents
+- Groups failures into a single investigation
+
+---
+
+### Root Cause Analysis Engine
+
+Automatically identifies:
+
+- Earliest failing service
+- Failure propagation chain
+- Cross-service dependencies
+- Confidence score
+
+---
+
+### AI Investigation Reports
+
+Uses Amazon Bedrock to generate:
+
+- Executive Summary
+- Probable Root Cause
+- Failure Timeline
+- Business Impact
+- Recommended Actions
+- Confidence & Caveats
+
+---
+
+### Observability
+
+- Spring Boot Actuator
+- Micrometer Metrics
+- Correlation ID propagation
+- AI request metrics
+- Health endpoints
+
+---
+
+# 📂 Project Structure
+
+```text
+src
+ ├── ai
+ ├── common
+ ├── incident
+ ├── investigation
+ ├── observability
+ ├── telemetry
+ └── config
+```
+
+---
+
+# 🚀 Running Locally
+
+## Clone
+
+```bash
+git clone https://github.com/<your-username>/pulseops-ai.git
+```
+
+## Start Dependencies
+
 ```bash
 docker compose up -d
+```
+
+## Run Application
+
+```bash
 mvn spring-boot:run
 ```
 
-Swagger UI: `http://localhost:8080/swagger-ui.html`
+---
 
-## Create an incident
-```bash
-curl -X POST http://localhost:8080/api/v1/incidents   -H "Content-Type: application/json"   -d '{"title":"Payment timeout spike","description":"DB connection failures increased","severity":"HIGH","detectedAt":"2026-07-04T14:32:18Z"}'
+# 📖 API Documentation
+
+Swagger UI
+
+```
+http://localhost:8080/swagger-ui/index.html
 ```
 
-## Next phase
-Kafka telemetry ingestion, correlation engine, PGVector RAG, Spring AI + Amazon Bedrock, Angular dashboard, AWS deployment.
+Actuator
+
+```
+http://localhost:8080/actuator
+```
+
+---
+
+# 🤖 Example AI Output
+
+PulseOps AI generates reports similar to:
+
+- Executive Summary
+- Root Cause Identification
+- Failure Chain
+- Business Impact Assessment
+- Recommended Mitigation Steps
+- Confidence Score
+
+Each report is persisted in PostgreSQL for future analysis.
+
+---
+
+# 📊 Observability
+
+PulseOps exposes operational metrics using Micrometer.
+
+Example:
+
+```
+GET /actuator/metrics/pulseops.ai.requests
+```
+
+---
+
+# 📸 Screenshots
+
+Add screenshots here:
+
+- Swagger UI
+- AI Investigation Response
+- PostgreSQL Database
+- Actuator Metrics
+- Kafka Running
+- Docker Containers
+
+---
+
+# 🛣 Roadmap
+
+- [x] Incident Management
+- [x] Kafka Telemetry Ingestion
+- [x] Event Correlation Engine
+- [x] Root Cause Scoring
+- [x] Amazon Bedrock Integration
+- [x] AI Investigation Reports
+- [x] Observability & Metrics
+- [ ] AWS ECS Deployment
+- [ ] GitHub Actions CI/CD
+- [ ] Prometheus + Grafana Dashboard
+
+---
+
+# 👩‍💻 Author
+
+**Mansi Solanki**
+
+Software Engineer passionate about Java, Distributed Systems, Cloud-Native Applications, and AI-powered Backend Engineering.
+
+- LinkedIn: https://linkedin.com/in/mansisolanki39
