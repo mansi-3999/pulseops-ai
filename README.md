@@ -23,6 +23,14 @@ PulseOps AI automates this workflow by:
 
 # 🏗 Architecture
 
+<p align="center">
+  <img src="docs/images/PulseOpsAi.png"
+       alt="PulseOps AI Architecture"
+       width="1000"/>
+</p>
+
+PulseOps AI ingests telemetry events from distributed services, correlates failures, creates incidents automatically, performs deterministic root cause analysis, and leverages Amazon Bedrock to generate AI-powered investigation reports. The platform exposes REST APIs, operational metrics, and persists all analysis in PostgreSQL.
+
 ```text
                     +--------------------+
                     |  Client Services   |
