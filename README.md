@@ -208,35 +208,6 @@ Example:
 GET /actuator/metrics/pulseops.ai.requests
 ```
 
----
-
-# 📸 Screenshots
-
-Add screenshots here:
-
-- Swagger UI
-- AI Investigation Response
-- PostgreSQL Database
-- Actuator Metrics
-- Kafka Running
-- Docker Containers
-
----
-
-# 🛣 Roadmap
-
-- [x] Incident Management
-- [x] Kafka Telemetry Ingestion
-- [x] Event Correlation Engine
-- [x] Root Cause Scoring
-- [x] Amazon Bedrock Integration
-- [x] AI Investigation Reports
-- [x] Observability & Metrics
-- [ ] AWS ECS Deployment
-- [ ] GitHub Actions CI/CD
-- [ ] Prometheus + Grafana Dashboard
-
----
 
 # 👩‍💻 Author
 
