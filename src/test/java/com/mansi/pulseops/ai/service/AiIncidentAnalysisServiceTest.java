@@ -18,8 +18,10 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 
 class AiIncidentAnalysisServiceTest {
+
 
     @Test
     void shouldPersistCompletedAiAnalysis() {
@@ -38,6 +40,10 @@ class AiIncidentAnalysisServiceTest {
 
         AiProperties properties =
                 new AiProperties();
+
+        SimpleMeterRegistry meterRegistry = new SimpleMeterRegistry();
+
+        properties.setEnabled(true);
 
         properties.setModelId(
                 "test-model"
@@ -88,7 +94,8 @@ class AiIncidentAnalysisServiceTest {
                         investigationService,
                         promptBuilder,
                         aiClient,
-                        properties
+                        properties,
+                        meterRegistry
                 );
 
         AiAnalysisResponse response =

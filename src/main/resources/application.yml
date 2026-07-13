@@ -32,11 +32,39 @@ spring:
 server:
   port: ${SERVER_PORT:8080}
 
+resilience4j:
+  circuitbreaker:
+    instances:
+      bedrockAi:
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+        wait-duration-in-open-state: 30s
+        permitted-number-of-calls-in-half-open-state: 2
+        automatic-transition-from-open-to-half-open-enabled: true
+
+  retry:
+    instances:
+      bedrockAi:
+        max-attempts: 3
+        wait-duration: 1s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+
 management:
   endpoints:
     web:
       exposure:
-        include: health,info
+        include: health,info,metrics,prometheus
+
+  endpoint:
+    health:
+      show-details: always
+
+    metrics:
+      tags:
+        application: pulseops-ai
 
 springdoc:
   swagger-ui:
@@ -55,3 +83,7 @@ pulseops:
 
   correlation:
     minimum-events: 2
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd'T'HH:mm:ss.SSSXXX} %-5level [%thread] [correlationId=%X{correlationId:-N/A}] %logger{36} - %msg%n"

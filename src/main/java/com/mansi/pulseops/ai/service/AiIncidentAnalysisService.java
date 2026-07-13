@@ -9,6 +9,8 @@ import com.mansi.pulseops.ai.repository.AiAnalysisRepository;
 import com.mansi.pulseops.investigation.dto.InvestigationResponse;
 import com.mansi.pulseops.investigation.service.InvestigationService;
 import org.springframework.stereotype.Service;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.MeterRegistry;
 
 import java.util.UUID;
 
@@ -20,24 +22,39 @@ public class AiIncidentAnalysisService {
     private final IncidentPromptBuilder promptBuilder;
     private final AiClient aiClient;
     private final AiProperties properties;
+    private final Counter aiRequestsCounter;
 
     public AiIncidentAnalysisService(
             AiAnalysisRepository repository,
             InvestigationService investigationService,
             IncidentPromptBuilder promptBuilder,
             AiClient aiClient,
-            AiProperties properties
+            AiProperties properties,
+            MeterRegistry meterRegistry
     ) {
         this.repository = repository;
         this.investigationService = investigationService;
         this.promptBuilder = promptBuilder;
         this.aiClient = aiClient;
         this.properties = properties;
+
+        this.aiRequestsCounter =
+                Counter.builder("pulseops.ai.requests")
+                        .description("Total AI analysis requests")
+                        .register(meterRegistry);
     }
 
     public AiAnalysisResponse analyzeIncident(
             UUID incidentId
     ) {
+
+        if (!properties.isEnabled()) {
+            throw new IllegalStateException(
+                    "AI analysis is disabled. " +
+                            "Set PULSEOPS_AI_ENABLED=true."
+            );
+        }
+
         InvestigationResponse investigation =
                 investigationService
                         .getLatestByIncident(incidentId);
@@ -58,6 +75,8 @@ public class AiIncidentAnalysisService {
 
             String aiResponse =
                     aiClient.analyze(prompt);
+
+            aiRequestsCounter.increment();
 
             analysis.complete(aiResponse);
 
