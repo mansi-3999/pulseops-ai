@@ -1,3 +1,8 @@
+/**
+ * REST endpoints for retrieving deterministic incident
+ * investigations and supporting evidence.
+ */
+
 package com.mansi.pulseops.investigation.controller;
 
 import com.mansi.pulseops.investigation.dto.InvestigationResponse;

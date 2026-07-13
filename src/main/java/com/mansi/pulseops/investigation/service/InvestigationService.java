@@ -1,8 +1,15 @@
+/**
+ * Builds investigations by analyzing correlated telemetry
+ * and identifying the most probable root cause.
+ */
+
 package com.mansi.pulseops.investigation.service;
 
 import com.mansi.pulseops.incident.domain.Incident;
 import com.mansi.pulseops.incident.repository.IncidentRepository;
-import com.mansi.pulseops.investigation.domain.*;
+import com.mansi.pulseops.investigation.domain.EvidenceType;
+import com.mansi.pulseops.investigation.domain.Investigation;
+import com.mansi.pulseops.investigation.domain.InvestigationEvidence;
 import com.mansi.pulseops.investigation.dto.EvidenceResponse;
 import com.mansi.pulseops.investigation.dto.InvestigationResponse;
 import com.mansi.pulseops.investigation.repository.InvestigationEvidenceRepository;

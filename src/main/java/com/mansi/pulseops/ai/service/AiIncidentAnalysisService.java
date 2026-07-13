@@ -1,3 +1,8 @@
+/**
+ * Generates AI-assisted incident investigations using
+ * Amazon Bedrock and deterministic investigation results.
+ */
+
 package com.mansi.pulseops.ai.service;
 
 import com.mansi.pulseops.ai.client.AiClient;
@@ -8,9 +13,9 @@ import com.mansi.pulseops.ai.prompt.IncidentPromptBuilder;
 import com.mansi.pulseops.ai.repository.AiAnalysisRepository;
 import com.mansi.pulseops.investigation.dto.InvestigationResponse;
 import com.mansi.pulseops.investigation.service.InvestigationService;
-import org.springframework.stereotype.Service;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 

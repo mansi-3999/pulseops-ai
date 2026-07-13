@@ -1,12 +1,26 @@
+/**
+ * Represents a telemetry event captured from an application
+ * or infrastructure component.
+ */
+
 package com.mansi.pulseops.telemetry.domain;
 
 import jakarta.persistence.*;
 
 import java.time.OffsetDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table(name = "telemetry_events")
+@Table(
+        name = "telemetry_events",
+        indexes = {
+                @Index(name = "idx_telemetry_trace_id", columnList = "trace_id"),
+                @Index(name = "idx_telemetry_service_name", columnList = "service_name"),
+                @Index(name = "idx_telemetry_occurred_at", columnList = "occurred_at"),
+                @Index(name = "idx_telemetry_incident_id", columnList = "incident_id")
+        }
+)
 public class TelemetryEvent {
 
     @Id
@@ -125,6 +139,7 @@ public class TelemetryEvent {
     }
 
     public void assignToIncident(UUID incidentId) {
+        Objects.requireNonNull(incidentId);
         this.incidentId = incidentId;
     }
 }

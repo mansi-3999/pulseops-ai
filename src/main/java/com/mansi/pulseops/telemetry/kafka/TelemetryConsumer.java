@@ -1,3 +1,8 @@
+/**
+ * Consumes telemetry events from Kafka and forwards them
+ * to the telemetry processing pipeline.
+ */
+
 package com.mansi.pulseops.telemetry.kafka;
 
 import com.mansi.pulseops.correlation.service.CorrelationService;
@@ -38,7 +43,7 @@ public class TelemetryConsumer {
             TelemetryEventMessage message
     ) {
         log.info(
-                "Received telemetry event. eventId={}, serviceName={}, traceId={}",
+                "Received telemetry event [ eventId={}, serviceName={}, traceId={} ]",
                 message.eventId(),
                 message.serviceName(),
                 message.traceId()

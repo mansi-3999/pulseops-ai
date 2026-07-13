@@ -1,2 +1,3 @@
 package com.mansi.pulseops.incident.domain;
-public enum Severity { LOW, MEDIUM, HIGH, CRITICAL }
+
+public enum Severity {LOW, MEDIUM, HIGH, CRITICAL}

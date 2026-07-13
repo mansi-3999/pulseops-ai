@@ -1,3 +1,8 @@
+/**
+ * Populates the logging context with correlation identifiers
+ * to improve request traceability across the application.
+ */
+
 package com.mansi.pulseops.observability.logging;
 
 import jakarta.servlet.FilterChain;

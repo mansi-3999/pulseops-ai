@@ -1,3 +1,8 @@
+/**
+ * Publishes telemetry events to Kafka for asynchronous
+ * processing by the correlation engine.
+ */
+
 package com.mansi.pulseops.telemetry.kafka;
 
 import com.mansi.pulseops.telemetry.dto.TelemetryEventMessage;

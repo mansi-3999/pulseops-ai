@@ -1,5 +1,12 @@
 package com.mansi.pulseops.incident.dto;
+
 import com.mansi.pulseops.incident.domain.Severity;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.time.OffsetDateTime;
-public record CreateIncidentRequest(@NotBlank @Size(max=255) String title,@Size(max=5000) String description,@NotNull Severity severity,@NotNull OffsetDateTime detectedAt) {}
+
+public record CreateIncidentRequest(@NotBlank @Size(max = 255) String title, @Size(max = 5000) String description,
+                                    @NotNull Severity severity, @NotNull OffsetDateTime detectedAt) {
+}

@@ -1,3 +1,8 @@
+/**
+ * REST endpoints for generating and retrieving
+ * AI-assisted incident investigations.
+ */
+
 package com.mansi.pulseops.ai.controller;
 
 import com.mansi.pulseops.ai.dto.AiAnalysisResponse;

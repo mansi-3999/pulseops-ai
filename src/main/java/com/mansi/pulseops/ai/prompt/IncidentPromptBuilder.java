@@ -1,3 +1,8 @@
+/**
+ * Builds structured prompts for large language models
+ * using deterministic investigation results.
+ */
+
 package com.mansi.pulseops.ai.prompt;
 
 import com.mansi.pulseops.investigation.dto.EvidenceResponse;
@@ -22,9 +27,9 @@ public class IncidentPromptBuilder {
 
         return """
                 You are PulseOps AI, a production incident analysis assistant.
-
+                
                 Analyze only the evidence provided below.
-
+                
                 Rules:
                 1. Do not invent services, events, dependencies, metrics, or causes.
                 2. Clearly separate observed evidence from inference.
@@ -32,42 +37,42 @@ public class IncidentPromptBuilder {
                 4. If evidence is insufficient, explicitly say so.
                 5. Recommendations must be actionable and technically specific.
                 6. Do not claim certainty unsupported by evidence.
-
+                
                 INCIDENT INVESTIGATION CONTEXT
-
+                
                 Incident ID:
                 %s
-
+                
                 Deterministic Summary:
                 %s
-
+                
                 Deterministic Root Cause Candidate:
                 %s
-
+                
                 Deterministic Confidence:
                 %s
-
+                
                 Total Correlated Events:
                 %d
-
+                
                 Affected Services:
                 %s
-
+                
                 Evidence:
                 %s
-
+                
                 Produce the response using exactly these sections:
-
+                
                 ## Executive Summary
-
+                
                 ## Probable Root Cause
-
+                
                 ## Failure Chain
-
+                
                 ## Business Impact
-
+                
                 ## Recommended Actions
-
+                
                 ## Confidence and Caveats
                 """
                 .formatted(

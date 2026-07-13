@@ -1,13 +1,26 @@
+/**
+ * Represents an operational incident generated manually
+ * or by the correlation engine.
+ */
+
 package com.mansi.pulseops.incident.domain;
 
 import jakarta.persistence.*;
-import org.hibernate.query.sqm.mutation.internal.cte.CteInsertStrategy;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "incidents")
+@Table(
+        name = "incidents",
+        indexes = {
+                @Index(name = "idx_incident_status", columnList = "status"),
+                @Index(name = "idx_incident_severity", columnList = "severity"),
+                @Index(name = "idx_incident_detected_at", columnList = "detected_at"),
+                @Index(name = "idx_incident_correlation_key", columnList = "correlation_key"),
+                @Index(name = "idx_incident_source", columnList = "source")
+        }
+)
 public class Incident {
 
     @Id

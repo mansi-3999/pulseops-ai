@@ -1,3 +1,8 @@
+/**
+ * Represents a completed investigation containing
+ * root cause analysis and supporting evidence.
+ */
+
 package com.mansi.pulseops.investigation.domain;
 
 import jakarta.persistence.*;

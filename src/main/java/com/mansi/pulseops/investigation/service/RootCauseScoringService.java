@@ -1,9 +1,16 @@
+/**
+ * Calculates deterministic confidence scores to identify
+ * the most likely root cause service involved in an incident.
+ */
+
 package com.mansi.pulseops.investigation.service;
 
 import com.mansi.pulseops.telemetry.domain.TelemetryEvent;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class RootCauseScoringService {

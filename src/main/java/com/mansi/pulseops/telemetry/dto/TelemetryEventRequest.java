@@ -3,6 +3,7 @@ package com.mansi.pulseops.telemetry.dto;
 import com.mansi.pulseops.telemetry.domain.TelemetrySeverity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
 import java.time.OffsetDateTime;
@@ -28,6 +29,7 @@ public record TelemetryEventRequest(
         String traceId,
 
         @NotNull
+        @PastOrPresent
         OffsetDateTime occurredAt
 ) {
 }

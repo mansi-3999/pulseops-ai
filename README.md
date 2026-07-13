@@ -1,21 +1,21 @@
 # 🚀 PulseOps AI
 
-> **An AI-powered Incident Correlation & Root Cause Analysis Platform built with Java 21, Spring Boot, Kafka and Amazon Bedrock.**
+> **An AI-powered Incident Correlation & Root Cause Analysis Platform built with Java 21, Spring Boot, Apache Kafka, PostgreSQL, Docker, and Amazon Bedrock.**
 
-PulseOps AI automatically ingests telemetry events, correlates failures across distributed services, identifies probable root causes using deterministic analysis, and generates AI-powered incident investigation reports using Amazon Bedrock.
+PulseOps AI is an event-driven backend platform that ingests telemetry from distributed services, correlates related failures into incidents, performs deterministic root cause investigation, and generates AI-assisted operational reports using Amazon Bedrock.
 
 ---
 
 ## ✨ Why PulseOps AI?
 
-Modern microservice architectures generate thousands of logs and events every minute. During production outages, engineers spend valuable time manually correlating logs across multiple services.
+Modern distributed systems generate thousands of telemetry events every minute. During production incidents, engineers often spend valuable time manually correlating failures across multiple services before identifying the actual root cause.
 
 PulseOps AI automates this workflow by:
 
 - 📥 Ingesting telemetry events in real time
-- 🔗 Correlating related failures
+- 🔗 Correlating related failures using Trace IDs
 - 🚨 Creating incidents automatically
-- 🧠 Performing deterministic root cause analysis
+- 🔍 Performing deterministic root cause investigation
 - 🤖 Generating AI-powered investigation reports
 - 📊 Exposing operational metrics for observability
 
@@ -29,175 +29,162 @@ PulseOps AI automates this workflow by:
        width="1000"/>
 </p>
 
-PulseOps AI ingests telemetry events from distributed services, correlates failures, creates incidents automatically, performs deterministic root cause analysis, and leverages Amazon Bedrock to generate AI-powered investigation reports. The platform exposes REST APIs, operational metrics, and persists all analysis in PostgreSQL.
-
-```text
-                    +--------------------+
-                    |  Client Services   |
-                    +---------+----------+
-                              |
-                       Telemetry Events
-                              |
-                              ▼
-                       Apache Kafka Topic
-                              |
-                              ▼
-                    Telemetry Consumer
-                              |
-                              ▼
-                  Correlation Engine
-                              |
-                              ▼
-                 Incident Management
-                              |
-                              ▼
-               Investigation Engine
-                              |
-                              ▼
-            Deterministic RCA Engine
-                              |
-                              ▼
-                Prompt Builder (LLM)
-                              |
-                              ▼
-                 Amazon Bedrock AI
-                              |
-                              ▼
-               AI Investigation Report
-                              |
-                              ▼
-                    PostgreSQL Storage
-                              |
-                              ▼
-                    REST APIs / Swagger
-```
+PulseOps AI follows an event-driven architecture where telemetry events are received through REST APIs, streamed using Apache Kafka, correlated into incidents, investigated using deterministic analysis, and enriched with AI-generated operational insights through Amazon Bedrock. All application data is persisted in PostgreSQL and exposed through REST APIs with built-in observability.
 
 ---
 
 # ⚙️ Tech Stack
 
 | Category | Technologies |
-|----------|--------------|
+|------------|-------------|
 | Language | Java 21 |
 | Framework | Spring Boot 3.5 |
 | Messaging | Apache Kafka |
 | Database | PostgreSQL |
 | ORM | Spring Data JPA |
-| Migration | Flyway |
+| Database Migration | Flyway |
 | AI | Amazon Bedrock (Nova Lite) |
 | Cloud SDK | AWS SDK v2 |
 | Observability | Spring Boot Actuator, Micrometer |
-| API Docs | OpenAPI / Swagger |
+| API Documentation | OpenAPI / Swagger |
 | Build Tool | Maven |
 | Testing | JUnit 5, Mockito |
-| Containerization | Docker |
+| Containerization | Docker & Docker Compose |
 
 ---
 
 # 🔥 Key Features
 
-### Intelligent Incident Correlation
+## 🔗 Intelligent Incident Correlation
 
 - Correlates telemetry events using Trace IDs
-- Prevents duplicate incidents
-- Groups failures into a single investigation
+- Prevents duplicate incident creation
+- Groups related failures into a single operational incident
+- Tracks correlated event count and affected services
 
 ---
 
-### Root Cause Analysis Engine
+## 🔍 Deterministic Root Cause Investigation
 
-Automatically identifies:
+Automatically builds investigations by identifying:
 
 - Earliest failing service
 - Failure propagation chain
 - Cross-service dependencies
-- Confidence score
+- Root cause confidence score
+- Supporting investigation evidence
 
 ---
 
-### AI Investigation Reports
+## 🤖 AI Investigation Reports
 
 Uses Amazon Bedrock to generate:
 
 - Executive Summary
 - Probable Root Cause
-- Failure Timeline
-- Business Impact
-- Recommended Actions
+- Failure Chain
+- Business Impact Assessment
+- Recommended Remediation Steps
 - Confidence & Caveats
 
 ---
 
-### Observability
+## 📊 Observability
 
 - Spring Boot Actuator
 - Micrometer Metrics
-- Correlation ID propagation
-- AI request metrics
-- Health endpoints
+- Correlation ID Logging
+- AI Request Metrics
+- Health & Prometheus Endpoints
 
 ---
 
-## 📁 Project Structure
+# 📁 Project Structure
 
 ```text
 pulseops-ai
 │
 ├── src
-│   ├── ai
-│   │    ├── client
-│   │    ├── controller
-│   │    ├── prompt
-│   │    ├── repository
-│   │    └── service
-│   │
-│   ├── incident
-│   ├── telemetry
-│   ├── investigation
-│   ├── observability
-│   ├── common
-│   └── config
+│   └── main
+│       └── java
+│           └── com.mansi.pulseops
+│               ├── ai
+│               ├── telemetry
+│               ├── correlation
+│               ├── incident
+│               ├── investigation
+│               ├── observability
+│               ├── common
+│               └── config
+│
+├── docs
+│   └── images
 │
 ├── docker-compose.yml
 ├── Dockerfile
 ├── pom.xml
 └── README.md
 ```
-```
+
+---
+
+# 🗄 Database
+
+Application data is stored in PostgreSQL using Flyway-managed schema migrations.
+
+Primary tables include:
+
+- telemetry_events
+- incidents
+- investigations
+- ai_analyses
+
+This enables complete traceability from telemetry ingestion to AI-generated investigation reports.
 
 ---
 
 # 🚀 Running Locally
 
-## Clone
+## Clone Repository
 
 ```bash
-git clone https://github.com/<your-username>/pulseops-ai.git
+git clone https://github.com/<your-github-username>/pulseops-ai.git
+cd pulseops-ai
 ```
 
-## Start Dependencies
+---
+
+## Start Infrastructure
 
 ```bash
 docker compose up -d
 ```
 
+---
+
 ## Run Application
 
 ```bash
-mvn spring-boot:run
+mvn clean spring-boot:run
+```
+
+Application starts on:
+
+```
+http://localhost:8080
 ```
 
 ---
 
 # 📖 API Documentation
 
-Swagger UI
+### Swagger UI
 
 ```
 http://localhost:8080/swagger-ui/index.html
 ```
 
-Actuator
+### Spring Boot Actuator
 
 ```
 http://localhost:8080/actuator
@@ -205,36 +192,52 @@ http://localhost:8080/actuator
 
 ---
 
-# 🤖 Example AI Output
+# 🤖 Example AI Investigation
 
-PulseOps AI generates reports similar to:
+Each AI-generated investigation includes:
 
 - Executive Summary
 - Root Cause Identification
 - Failure Chain
-- Business Impact Assessment
-- Recommended Mitigation Steps
+- Business Impact
+- Recommended Actions
 - Confidence Score
 
-Each report is persisted in PostgreSQL for future analysis.
+The generated report is persisted in PostgreSQL and can be retrieved through REST APIs.
 
 ---
 
 # 📊 Observability
 
-PulseOps exposes operational metrics using Micrometer.
+PulseOps exposes runtime metrics through Spring Boot Actuator and Micrometer.
 
-Example:
+Example endpoint:
 
 ```
 GET /actuator/metrics/pulseops.ai.requests
 ```
 
+Additional endpoints include:
 
-# 👩‍💻 Author
+- `/actuator/health`
+- `/actuator/prometheus`
+- `/actuator/metrics`
 
-**Mansi Solanki**
+---
 
-Software Engineer passionate about Java, Distributed Systems, Cloud-Native Applications, and AI-powered Backend Engineering.
+# 🚀 Future Enhancements
 
-- LinkedIn: https://linkedin.com/in/mansisolanki39
+- Kubernetes deployment
+- Grafana dashboards
+- OpenTelemetry tracing
+- Multi-model AI support
+- Role-based authentication
+- Incident notification integrations
+
+---
+
+## 🤝 Connect
+
+If you'd like to discuss backend engineering, distributed systems, or AI-powered applications, feel free to connect.
+
+- **LinkedIn:** https://linkedin.com/in/mansisolanki39

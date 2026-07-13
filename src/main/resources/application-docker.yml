@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://postgres:5432/pulseops
+    username: pulseops
+    password: pulseops
+
+  kafka:
+    bootstrap-servers: kafka:9092
+
+logging:
+  level:
+    com.mansi.pulseops: INFO

@@ -1,3 +1,8 @@
+/**
+ * Handles telemetry ingestion, persistence, and event
+ * publication for downstream incident correlation.
+ */
+
 package com.mansi.pulseops.telemetry.service;
 
 import com.mansi.pulseops.telemetry.dto.TelemetryAcceptedResponse;

@@ -1,3 +1,8 @@
+/**
+ * Represents a persisted AI-generated incident analysis
+ * and its execution metadata.
+ */
+
 package com.mansi.pulseops.ai.domain;
 
 import jakarta.persistence.*;

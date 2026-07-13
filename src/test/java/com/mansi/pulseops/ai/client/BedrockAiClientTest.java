@@ -9,9 +9,9 @@ import software.amazon.awssdk.services.bedrockruntime.model.*;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BedrockAiClientTest {
 
@@ -79,6 +79,7 @@ class BedrockAiClientTest {
         verify(metrics).recordSuccess();
         verify(metrics).recordLatency(anyLong());
     }
+
     @Test
     void shouldReturnFallbackResponse() {
 

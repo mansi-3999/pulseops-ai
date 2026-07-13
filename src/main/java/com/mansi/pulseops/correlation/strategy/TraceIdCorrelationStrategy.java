@@ -1,3 +1,8 @@
+/**
+ * Correlates telemetry events that share the same distributed
+ * tracing identifier.
+ */
+
 package com.mansi.pulseops.correlation.strategy;
 
 import com.mansi.pulseops.correlation.config.CorrelationProperties;

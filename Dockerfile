@@ -1,5 +1,29 @@
+# ============================
+# Stage 1 - Build
+# ============================
+
+FROM maven:3.9.11-eclipse-temurin-21 AS builder
+
+WORKDIR /build
+
+COPY pom.xml .
+
+COPY src ./src
+
+RUN mvn clean package -DskipTests --no-transfer-progress
+
+# ============================
+# Stage 2 - Runtime
+# ============================
+
 FROM eclipse-temurin:21-jre
+
+LABEL maintainer="Mansi Solanki"
+
 WORKDIR /app
-COPY target/pulseops-ai-0.0.1-SNAPSHOT.jar app.jar
+
+COPY --from=builder /build/target/pulseops-ai-0.0.1-SNAPSHOT.jar app.jar
+
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+
+ENTRYPOINT ["java","-jar","app.jar"]

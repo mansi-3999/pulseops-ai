@@ -1,3 +1,8 @@
+/**
+ * Correlates telemetry events into incidents using
+ * configurable correlation strategies and temporal analysis.
+ */
+
 package com.mansi.pulseops.correlation.service;
 
 import com.mansi.pulseops.correlation.model.CorrelationDecision;

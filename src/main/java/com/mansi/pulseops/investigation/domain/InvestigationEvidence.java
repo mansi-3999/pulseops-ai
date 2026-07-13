@@ -1,3 +1,8 @@
+/**
+ * Represents evidence collected during deterministic
+ * incident investigation.
+ */
+
 package com.mansi.pulseops.investigation.domain;
 
 import jakarta.persistence.*;

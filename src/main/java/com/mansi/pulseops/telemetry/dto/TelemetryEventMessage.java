@@ -1,6 +1,8 @@
 package com.mansi.pulseops.telemetry.dto;
 
 import com.mansi.pulseops.telemetry.domain.TelemetrySeverity;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 import java.time.OffsetDateTime;
 import java.util.UUID;

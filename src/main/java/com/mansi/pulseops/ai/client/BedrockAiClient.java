@@ -1,3 +1,8 @@
+/**
+ * Amazon Bedrock client responsible for generating
+ * natural language incident analysis.
+ */
+
 package com.mansi.pulseops.ai.client;
 
 import com.mansi.pulseops.ai.config.AiProperties;
@@ -91,19 +96,19 @@ public class BedrockAiClient implements AiClient {
             }
 
             String result =
-                response.output()
-                .message()
-                .content()
-                .stream()
-                .map(ContentBlock::text)
-                .filter(java.util.Objects::nonNull)
-                .findFirst()
-                .orElseThrow(() ->
-                        new AiProviderException(
-                                "Bedrock response contained no text",
-                                null
-                        )
-                );
+                    response.output()
+                            .message()
+                            .content()
+                            .stream()
+                            .map(ContentBlock::text)
+                            .filter(java.util.Objects::nonNull)
+                            .findFirst()
+                            .orElseThrow(() ->
+                                    new AiProviderException(
+                                            "Bedrock response contained no text",
+                                            null
+                                    )
+                            );
 
             metrics.recordSuccess();
 
@@ -150,27 +155,27 @@ public class BedrockAiClient implements AiClient {
 
         return """
                 ## Executive Summary
-
+                
                 AI-generated analysis is temporarily unavailable.
-
+                
                 ## Probable Root Cause
-
+                
                 Refer to the deterministic root-cause analysis produced by PulseOps.
-
+                
                 ## Failure Chain
-
+                
                 Refer to the correlated telemetry evidence and deterministic investigation timeline.
-
+                
                 ## Business Impact
-
+                
                 Automated AI impact assessment is temporarily unavailable.
-
+                
                 ## Recommended Actions
-
+                
                 Review the deterministic evidence, highest-ranked root-cause service, and correlated failure timeline.
-
+                
                 ## Confidence and Caveats
-
+                
                 This is a resilience fallback response. No LLM inference was performed.
                 """;
     }

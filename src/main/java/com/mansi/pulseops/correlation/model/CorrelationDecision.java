@@ -1,3 +1,8 @@
+/**
+ * Represents the outcome of a correlation strategy,
+ * including whether an incident should be created.
+ */
+
 package com.mansi.pulseops.correlation.model;
 
 import com.mansi.pulseops.telemetry.domain.TelemetryEvent;

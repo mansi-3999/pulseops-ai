@@ -1,2 +1,3 @@
 package com.mansi.pulseops.incident.domain;
-public enum IncidentStatus { OPEN, INVESTIGATING, RESOLVED, CLOSED }
+
+public enum IncidentStatus {OPEN, INVESTIGATING, RESOLVED, CLOSED}

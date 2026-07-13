@@ -1,14 +1,23 @@
+/**
+ * Manages the lifecycle of incidents including creation,
+ * retrieval, status updates, and correlation results.
+ */
+
 package com.mansi.pulseops.incident.service;
 
 import com.mansi.pulseops.common.exception.IncidentNotFoundException;
-import com.mansi.pulseops.incident.domain.*;
-import com.mansi.pulseops.incident.dto.*;
+import com.mansi.pulseops.incident.domain.Incident;
+import com.mansi.pulseops.incident.domain.IncidentStatus;
+import com.mansi.pulseops.incident.domain.Severity;
+import com.mansi.pulseops.incident.dto.CreateIncidentRequest;
+import com.mansi.pulseops.incident.dto.IncidentResponse;
 import com.mansi.pulseops.incident.repository.IncidentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.OffsetDateTime;
-import java.util.*;
+import java.util.List;
+import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)

@@ -1,3 +1,8 @@
+/**
+ * Centralizes custom Micrometer metrics used to monitor
+ * AI requests, incident processing, and application health.
+ */
+
 package com.mansi.pulseops.observability.metrics;
 
 import io.micrometer.core.instrument.Counter;

@@ -1,9 +1,13 @@
 package com.mansi.pulseops.incident.repository;
 
-import com.mansi.pulseops.incident.domain.*;
+import com.mansi.pulseops.incident.domain.Incident;
+import com.mansi.pulseops.incident.domain.IncidentStatus;
+import com.mansi.pulseops.incident.domain.Severity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public interface IncidentRepository extends JpaRepository<Incident, UUID> {
     List<Incident> findByStatusOrderByDetectedAtDesc(IncidentStatus status);

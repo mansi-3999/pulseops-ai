@@ -24,5 +24,6 @@ public interface TelemetryEventRepository
     findBySeverityOrderByOccurredAtDesc(
             TelemetrySeverity severity
     );
+
     long countByIncidentId(UUID incidentId);
 }
