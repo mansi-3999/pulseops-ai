@@ -130,17 +130,31 @@ Uses Amazon Bedrock to generate:
 
 ---
 
-# 📂 Project Structure
+## 📁 Project Structure
 
 ```text
-src
- ├── ai
- ├── common
- ├── incident
- ├── investigation
- ├── observability
- ├── telemetry
- └── config
+pulseops-ai
+│
+├── src
+│   ├── ai
+│   │    ├── client
+│   │    ├── controller
+│   │    ├── prompt
+│   │    ├── repository
+│   │    └── service
+│   │
+│   ├── incident
+│   ├── telemetry
+│   ├── investigation
+│   ├── observability
+│   ├── common
+│   └── config
+│
+├── docker-compose.yml
+├── Dockerfile
+├── pom.xml
+└── README.md
+```
 ```
 
 ---
